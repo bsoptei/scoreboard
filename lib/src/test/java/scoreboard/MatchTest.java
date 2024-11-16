@@ -20,6 +20,11 @@ public class MatchTest {
         var m = new Match("Uruguay", "");
     }
 
+    @Test(description = "Should not accept equal homeTeam and awayTeam", expectedExceptions = IllegalArgumentException.class)
+    public void homeTeamShouldNotEqualAwayTeamTest() {
+        var m = new Match("Uruguay", "Uruguay");
+    }
+
     @Test(description = "Should not accept awayTeam as whitespace", expectedExceptions = IllegalArgumentException.class)
     public void awayTeamNotWhitespaceTest() {
         var m = new Match("Uruguay", "    ");
