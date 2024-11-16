@@ -53,6 +53,9 @@ public record Match(UUID id, String homeTeam, int homeScore, String awayTeam, in
         if (awayTeam != null && awayTeam.trim().isEmpty()) {
             errorMessage = "awayTeam should not be empty";
         }
+        if (homeTeam != null && homeTeam.equalsIgnoreCase(awayTeam)) {
+            errorMessage = "homeTeam should not be the same as awayTeam";
+        }
 
         if (errorMessage != null) {
             throw new IllegalArgumentException(errorMessage);
