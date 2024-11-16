@@ -26,7 +26,37 @@ public record Match(UUID id, String homeTeam, int homeScore, String awayTeam, in
      * null or an empty String or whitespace only
      */
     public Match(String homeTeam, String awayTeam) {
-        this(null, homeTeam, 0, awayTeam, 0);
+        this(UUID.randomUUID(), homeTeam, 0, awayTeam, 0);
+    }
+
+    /**
+     * Validation for input values.
+     *
+     * @throws IllegalArgumentException if any of id, homeTeam, or awayTeam is
+     * null, or either of homeTeam or awayTeam is an empty String or whitespace
+     * only
+     */
+    public Match     {
+        String errorMessage = null;
+        if (id == null) {
+            errorMessage = "id should not be null";
+        }
+        if (homeTeam == null) {
+            errorMessage = "homeTeam should not be null";
+        }
+        if (awayTeam == null) {
+            errorMessage = "awayTeam should not be null";
+        }
+        if (homeTeam != null && homeTeam.trim().isEmpty()) {
+            errorMessage = "homeTeam should not be empty";
+        }
+        if (awayTeam != null && awayTeam.trim().isEmpty()) {
+            errorMessage = "awayTeam should not be empty";
+        }
+
+        if (errorMessage != null) {
+            throw new IllegalArgumentException(errorMessage);
+        }
     }
 
     /**
@@ -39,6 +69,6 @@ public record Match(UUID id, String homeTeam, int homeScore, String awayTeam, in
      * scores
      */
     public Match withNewScores(int newHomeScore, int newAwayScore) {
-        return null;
+        return new Match(this.id, this.homeTeam, newHomeScore, this.awayTeam, newAwayScore);
     }
 }
