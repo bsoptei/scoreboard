@@ -34,7 +34,7 @@ public record Match(UUID id, String homeTeam, int homeScore, String awayTeam, in
      *
      * @throws IllegalArgumentException if any of id, homeTeam, or awayTeam is
      * null, or either of homeTeam or awayTeam is an empty String or whitespace
-     * only
+     * only, or either of the scores are negative
      */
     public Match     {
         String errorMessage = null;
@@ -56,6 +56,9 @@ public record Match(UUID id, String homeTeam, int homeScore, String awayTeam, in
         if (homeTeam != null && homeTeam.equalsIgnoreCase(awayTeam)) {
             errorMessage = "homeTeam should not be the same as awayTeam";
         }
+        if (homeScore < 0 || awayScore < 0) {
+            errorMessage = "scores should not be negative";
+        }
 
         if (errorMessage != null) {
             throw new IllegalArgumentException(errorMessage);
@@ -74,6 +77,10 @@ public record Match(UUID id, String homeTeam, int homeScore, String awayTeam, in
      * @throws IllegalArgumentException if either of the new scores is negative
      */
     public Match withNewScores(int newHomeScore, int newAwayScore) {
+        if (newHomeScore < 0 || newAwayScore < 0) {
+            throw new IllegalArgumentException("negative scores are not allowed");
+        }
+
         return new Match(this.id, this.homeTeam, newHomeScore, this.awayTeam, newAwayScore);
     }
 }
