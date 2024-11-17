@@ -18,8 +18,7 @@ class SimpleScoreBoard implements ScoreBoard {
     @Override
     public Match startNewMatch(String homeTeam, String awayTeam) {
         var m = new Match(homeTeam, awayTeam);
-        var i = count.getAndIncrement();
-        matches.putIfAbsent(m.id(), new SimpleEntry<>(m, i));
+        matches.putIfAbsent(m.id(), new SimpleEntry<>(m, count.getAndIncrement()));
 
         return m;
     }
@@ -53,21 +52,18 @@ class SimpleScoreBoard implements ScoreBoard {
             snapshot = new ArrayList<>(matches.values());
         }
 
-        Collections.sort(snapshot, (e1, e2) -> {
-            var m1 = e1.getKey();
-            var m2 = e2.getKey();
-            var scoreSum1 = m1.homeScore() + m1.awayScore();
-            var scoreSum2 = m2.homeScore() + m2.awayScore();
+        Collections.sort(snapshot, (entry1, entry2) -> {
+            var match1 = entry1.getKey();
+            var match2 = entry2.getKey();
+            var scoreSum1 = match1.homeScore() + match1.awayScore();
+            var scoreSum2 = match2.homeScore() + match2.awayScore();
 
             if (scoreSum1 > scoreSum2) {
                 return -1;
             } else if (scoreSum1 < scoreSum2) {
                 return 1;
             } else {
-                var added1 = e1.getValue();
-                var added2 = e2.getValue();
-
-                return added1 > added2 ? -1 : 1;
+                return entry1.getValue() > entry2.getValue() ? -1 : 1;
             }
         });
 
