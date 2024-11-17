@@ -70,6 +70,8 @@ public record Match(UUID id, String homeTeam, int homeScore, String awayTeam, in
      *
      * @return the new instance with id and names from the original one, but new
      * scores
+     *
+     * @throws IllegalArgumentException if either of the new scores is negative
      */
     public Match withNewScores(int newHomeScore, int newAwayScore) {
         return new Match(this.id, this.homeTeam, newHomeScore, this.awayTeam, newAwayScore);
