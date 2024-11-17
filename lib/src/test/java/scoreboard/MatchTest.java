@@ -1,5 +1,7 @@
 package scoreboard;
 
+import java.util.UUID;
+
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
@@ -67,5 +69,29 @@ public class MatchTest {
         Assert.assertEquals(mWithNewScores.id(), m.id());
         Assert.assertEquals(mWithNewScores.homeTeam(), m.homeTeam());
         Assert.assertEquals(mWithNewScores.awayTeam(), m.awayTeam());
+    }
+
+    @Test(description = "negative homeScore should not be allowed on update", expectedExceptions = IllegalArgumentException.class)
+    public void updateWithNegativeHomeScoreTest() {
+        var m = new Match("Uruguay", "Argentina");
+
+        m.withNewScores(-1, 2);
+    }
+
+    @Test(description = "negative awayScore should not be allowed on update", expectedExceptions = IllegalArgumentException.class)
+    public void updateWithNegativeAwayScoreTest() {
+        var m = new Match("Uruguay", "Argentina");
+
+        m.withNewScores(1, -2);
+    }
+
+    @Test(description = "negative homeScore should not be allowed on create", expectedExceptions = IllegalArgumentException.class)
+    public void createWithNegativeHomeScoreTest() {
+        var m = new Match(UUID.randomUUID(), "Uruguay", -1, "Argentina", 1);
+    }
+
+    @Test(description = "negative awayScore should not be allowed on create", expectedExceptions = IllegalArgumentException.class)
+    public void createWithNegativeAwayScoreTest() {
+        var m = new Match(UUID.randomUUID(), "Uruguay", 1, "Argentina", -1);
     }
 }
