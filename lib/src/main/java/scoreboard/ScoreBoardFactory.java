@@ -14,6 +14,10 @@ public class ScoreBoardFactory {
      * @throws IllegalArgumentException if an unknown boardType or null is used
      */
     public static ScoreBoard getInstance(String boardType) {
-        return null;
+        if (boardType != null && boardType.equalsIgnoreCase("SIMPLE")) {
+            return new SimpleScoreBoard();
+        }
+
+        throw new IllegalArgumentException(String.format("board type %s not allowed", boardType));
     }
 }
