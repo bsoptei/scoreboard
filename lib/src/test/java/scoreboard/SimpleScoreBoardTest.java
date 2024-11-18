@@ -23,6 +23,13 @@ public class SimpleScoreBoardTest {
         Assert.assertEquals(match.awayScore(), 0);
     }
 
+    @Test(description = "trying to add a team that already plays should fail", expectedExceptions = IllegalArgumentException.class)
+    public void AddingAlreadyExistingTeamTest() {
+        var ssb = new SimpleScoreBoard();
+        ssb.startNewMatch("foo", "bar");
+        ssb.startNewMatch("baz", "foo");
+    }
+
     @Test(description = "updated score values should be reflected in the matches")
     public void updateScoreTest() {
         var ssb = new SimpleScoreBoard();
