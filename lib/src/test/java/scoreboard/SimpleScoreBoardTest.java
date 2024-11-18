@@ -66,6 +66,13 @@ public class SimpleScoreBoardTest {
         Assert.assertEquals(summary.get(0).id(), id2);
     }
 
+    @Test
+    public void finishNonExistingMatchTest() {
+        var ssb = new SimpleScoreBoard();
+        ssb.startNewMatch("foo", "bar").id();
+        ssb.finishMatch(UUID.randomUUID());
+    }
+
     @Test(description = "should not start match with same team name", expectedExceptions = IllegalArgumentException.class)
     public void dontStartMatchesWithSameTeams() {
         var ssb = new SimpleScoreBoard();
