@@ -16,7 +16,22 @@ class SimpleScoreBoard implements ScoreBoard {
     private final ConcurrentMap<UUID, SimpleEntry<Match, Integer>> matches = new ConcurrentHashMap<>();
 
     @Override
-    public Match startNewMatch(String homeTeam, String awayTeam) {
+    public synchronized Match startNewMatch(String homeTeam, String awayTeam) {
+        boolean isDuplicate = matches.values().stream()
+                .map(SimpleEntry::getKey)
+                .anyMatch(match
+                        -> match.homeTeam().equalsIgnoreCase(homeTeam)
+                || match.awayTeam().equalsIgnoreCase(homeTeam)
+                || match.homeTeam().equalsIgnoreCase(awayTeam)
+                || match.awayTeam().equalsIgnoreCase(awayTeam)
+                );
+
+        if (isDuplicate) {
+            throw new IllegalArgumentException(
+                    String.format("one or both team names [%s, %s] are already present in an ongoing match", homeTeam, awayTeam)
+            );
+        }
+
         var m = new Match(homeTeam, awayTeam);
         matches.putIfAbsent(m.id(), new SimpleEntry<>(m, count.getAndIncrement()));
 
