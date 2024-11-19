@@ -25,4 +25,9 @@ public class ScoreBoardFactoryTest {
     public void failForNullTypeTest() {
         var m = ScoreBoardFactory.getInstance(null);
     }
+
+    @Test(description = "factory should create simple scoreboard when boardType SIMPLE_WORLD_CUP is used")
+    public void createSimpleWorldCupInstanceTest() {
+        Assert.assertTrue(ScoreBoardFactory.getInstance("SIMPLE_WORLD_CUP") != null);
+    }
 }
