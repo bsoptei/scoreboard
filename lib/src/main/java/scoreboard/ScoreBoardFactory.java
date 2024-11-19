@@ -17,6 +17,9 @@ public class ScoreBoardFactory {
         if (boardType != null && boardType.equalsIgnoreCase("SIMPLE")) {
             return new SimpleScoreBoard();
         }
+        if (boardType != null && boardType.equalsIgnoreCase("SIMPLE_WORLD_CUP")) {
+            return new SimpleWorldCupScoreBoard();
+        }
 
         throw new IllegalArgumentException(String.format("board type %s not allowed", boardType));
     }
