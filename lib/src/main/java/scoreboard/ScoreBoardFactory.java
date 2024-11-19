@@ -8,19 +8,20 @@ public class ScoreBoardFactory {
     /**
      * The factory method.
      *
-     * @param boardType the type of the scoreboard, allowed types: SIMPLE
+     * @param boardType the type of the scoreboard, allowed types: SIMPLE,
+     * SIMPLE_WORLD_CUP
      *
      * @return an instance of the ScoreBoard
      * @throws IllegalArgumentException if an unknown boardType or null is used
      */
     public static ScoreBoard getInstance(String boardType) {
-        if (boardType != null && boardType.equalsIgnoreCase("SIMPLE")) {
-            return new SimpleScoreBoard();
-        }
-        if (boardType != null && boardType.equalsIgnoreCase("SIMPLE_WORLD_CUP")) {
-            return new SimpleWorldCupScoreBoard();
-        }
-
-        throw new IllegalArgumentException(String.format("board type %s not allowed", boardType));
+        return switch (boardType != null ? boardType.toUpperCase() : "null") {
+            case "SIMPLE" ->
+                new SimpleScoreBoard();
+            case "SIMPLE_WORLD_CUP" ->
+                new SimpleWorldCupScoreBoard();
+            default ->
+                throw new IllegalArgumentException(String.format("board type %s not allowed", boardType));
+        };
     }
 }
