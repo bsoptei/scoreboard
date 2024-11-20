@@ -55,7 +55,11 @@ class SimpleScoreBoard implements ScoreBoard {
 
     @Override
     public void finishMatch(UUID id) {
-        matches.remove(id);
+        if (id != null) {
+            matches.remove(id);
+        } else {
+            throw new IllegalArgumentException("id should not be null");
+        }
     }
 
     @Override
