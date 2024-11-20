@@ -94,4 +94,11 @@ public class MatchTest {
     public void createWithNegativeAwayScoreTest() {
         var m = new Match(UUID.randomUUID(), "Uruguay", 1, "Argentina", -1);
     }
+
+    @Test
+    public void teamNamesAreTrimmed() {
+        var m = new Match("  Uruguay  ", " Argentina    ");
+        Assert.assertEquals(m.homeTeam(), "Uruguay");
+        Assert.assertEquals(m.awayTeam(), "Argentina");
+    }
 }
