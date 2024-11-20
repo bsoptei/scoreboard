@@ -8,8 +8,10 @@ public class ScoreBoardFactory {
     /**
      * The factory method.
      *
-     * @param boardType the type of the scoreboard, allowed types: SIMPLE,
-     * SIMPLE_WORLD_CUP
+     * @param boardType the type of the scoreboard. Allowed types: SIMPLE (an
+     * in-memory representation of the score board); SIMPLE_WORLD_CUP (builds on
+     * SIMPLE, the difference is it only accepts valid national team names,
+     * throws for other team names).
      *
      * @return an instance of the ScoreBoard
      * @throws IllegalArgumentException if an unknown boardType or null is used

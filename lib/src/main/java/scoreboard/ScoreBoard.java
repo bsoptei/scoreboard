@@ -16,6 +16,7 @@ public interface ScoreBoard {
      * @param awayTeam the name of the away team
      *
      * @return the new match
+     * @throws IllegalArgumentException if Match validation fails
      */
     Match startNewMatch(String homeTeam, String awayTeam);
 
@@ -27,6 +28,8 @@ public interface ScoreBoard {
      * @param awayScore the new score of the away team
      *
      * @return the updated match
+     * @throws IllegalArgumentException if Match validation fails or id is not
+     * found or null
      */
     Match updateScore(UUID id, int homeScore, int awayScore);
 
@@ -35,6 +38,7 @@ public interface ScoreBoard {
      * scoreboard.
      *
      * @param id the id of the match to finish
+     * @throws IllegalArgumentException if id is null
      */
     void finishMatch(UUID id);
 

@@ -34,7 +34,8 @@ public record Match(UUID id, String homeTeam, int homeScore, String awayTeam, in
      *
      * @throws IllegalArgumentException if any of id, homeTeam, or awayTeam is
      * null, or either of homeTeam or awayTeam is an empty String or whitespace
-     * only, or either of the scores are negative
+     * only, or either of the scores are negative, or the team names are the
+     * same
      */
     public Match     {
         String errorMessage = null;
