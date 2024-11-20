@@ -78,6 +78,11 @@ public class ScoreBoardImplementationTest {
         sb.finishMatch(UUID.randomUUID());
     }
 
+    @Test(description = "finishMatch argument should not be null", dataProvider = "implementations", expectedExceptions = IllegalArgumentException.class)
+    public void finishMatchNullId(ScoreBoard sb) {
+        sb.finishMatch(null);
+    }
+
     @Test(description = "should not start match with same team name", expectedExceptions = IllegalArgumentException.class, dataProvider = "implementations")
     public void dontStartMatchesWithSameTeams(ScoreBoard sb) {
         sb.startNewMatch("Argentina", "Argentina");
