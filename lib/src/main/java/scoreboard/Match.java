@@ -78,10 +78,6 @@ public record Match(UUID id, String homeTeam, int homeScore, String awayTeam, in
      * @throws IllegalArgumentException if either of the new scores is negative
      */
     public Match withNewScores(int newHomeScore, int newAwayScore) {
-        if (newHomeScore < 0 || newAwayScore < 0) {
-            throw new IllegalArgumentException("negative scores are not allowed");
-        }
-
         return new Match(this.id, this.homeTeam, newHomeScore, this.awayTeam, newAwayScore);
     }
 }
