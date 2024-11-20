@@ -48,11 +48,19 @@ public record Match(UUID id, String homeTeam, int homeScore, String awayTeam, in
         if (awayTeam == null) {
             errorMessage = "awayTeam should not be null";
         }
-        if (homeTeam != null && homeTeam.trim().isEmpty()) {
-            errorMessage = "homeTeam should not be empty";
+        if (homeTeam != null) {
+            homeTeam = homeTeam.trim();
+
+            if (homeTeam.isEmpty()) {
+                errorMessage = "homeTeam should not be empty";
+            }
         }
-        if (awayTeam != null && awayTeam.trim().isEmpty()) {
-            errorMessage = "awayTeam should not be empty";
+        if (awayTeam != null) {
+            awayTeam = awayTeam.trim();
+
+            if (awayTeam.isEmpty()) {
+                errorMessage = "awayTeam should not be empty";
+            }
         }
         if (homeTeam != null && homeTeam.equalsIgnoreCase(awayTeam)) {
             errorMessage = "homeTeam should not be the same as awayTeam";
