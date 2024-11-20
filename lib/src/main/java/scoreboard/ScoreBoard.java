@@ -16,7 +16,8 @@ public interface ScoreBoard {
      * @param awayTeam the name of the away team
      *
      * @return the new match
-     * @throws IllegalArgumentException if Match validation fails
+     * @throws IllegalArgumentException if Match validation fails, or one of the
+     * teams is in an already existing match
      */
     Match startNewMatch(String homeTeam, String awayTeam);
 
